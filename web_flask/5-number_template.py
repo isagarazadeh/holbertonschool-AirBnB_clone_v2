@@ -1,48 +1,39 @@
 #!/usr/bin/python3
-"""doc"""
-
-
-from flask import Flask
-from markupsafe import escape
-from flask import render_template
-
-
+"""My Flask Task"""
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hello():
+@app.route("/", strict_slashes=False)
+def hello_hbnb():
     return "Hello HBNB!"
 
 
-@app.route('/hbnb', strict_slashes=False)
+@app.route("/hbnb", strict_slashes=False)
 def hbnb():
     return "HBNB"
 
 
-@app.route('/c/<text>', strict_slashes=False)
-def c(text):
-    new_text = text.replace('_', ' ')
-    return f"C {new_text}"
+@app.route("/c/<text>", strict_slashes=False)
+def c_text(text):
+    return "C {}".format(text.replace("_", " "))
 
 
-@app.route("/python", strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
-def python(text='is cool'):
-    new_text = text.replace('_', ' ')
-    return f"Python {new_text}"
+@app.route("/python", strict_slashes=False, defaults={'text': 'is cool'})
+@app.route("/python/<text>", strict_slashes=False)
+def python_text(text):
+    return "Python {}".format(text.replace("_", " "))
 
 
-@app.route("/number/<int:n>",  strict_slashes=False)
-def nbr(n):
+@app.route("/number/<int:n>")
+def number(n):
     return f"{n} is a number"
 
 
-@app.route("/number_template/", strict_slashes=False)
 @app.route("/number_template/<int:n>", strict_slashes=False)
-def nbr2(n=None):
-    return render_template('5-number.html', nbr=n)
+def load_template(n):
+    return render_template('5-number.html', n=n)
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
