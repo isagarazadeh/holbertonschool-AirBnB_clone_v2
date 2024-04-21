@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""doc"""
+"""Flask task"""
 
 
 from flask import Flask, render_template
